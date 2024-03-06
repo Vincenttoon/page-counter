@@ -21,16 +21,23 @@ const resolvers = {
       return User.find()
         .select("-__v -password")
         .populate("reviews")
-        .populate("savedBooks")
         .populate("worms");
     },
 
-    user: async (parent, { username }) => {
-      return User.findOne({ username })
-        .select("-__v -password")
-        .populate("reviews")
-        .populate("savedBooks")
-        .populate("worms");
+    user: async (parent, { username }, context) => {
+      if (context.user && context.user.username === username) {
+        // If the logged-in user is viewing their own page, return their full data including saved books and reviews
+        return User.findOne({ username })
+          .select("-__v -password")
+          .populate("reviews")
+          .populate("savedBooks")
+          .populate("worms");
+      } else {
+        // If another user is viewing the page, return only public information and their reviews
+        return User.findOne({ username })
+          .select("-__v -password")
+          .populate("reviews");
+      }
     },
 
     // Query all reviews through GraphQl

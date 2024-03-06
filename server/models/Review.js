@@ -18,8 +18,8 @@ const reviewSchema = new Schema({
   rating: {
     type: Decimal128,
     required: true,
-    min: Decimal128.fromString("0"),
-    max: Decimal128.fromString("5"),
+    min: Decimal128,
+    max: Decimal128,
   },
   book: {
     type: Schema.Types.ObjectId,
