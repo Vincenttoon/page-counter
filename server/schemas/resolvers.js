@@ -49,6 +49,54 @@ const resolvers = {
     review: async (parent, { _id }) => {
       return Review.findOne({ _id });
     },
+
+    savedBooks: async (parent, args, context) => {
+      if (context.user) {
+        try {
+          // Fetch the user's saved books from the database
+          const user = await User.findById(context.user._id).populate(
+            "savedBooks"
+          );
+          if (!user) {
+            throw new Error("User not found");
+          }
+          // Extract and return the saved books
+          return user.savedBooks;
+        } catch (error) {
+          throw new Error("Failed to fetch saved books");
+        }
+      } else {
+        throw new Error("You need to be logged in");
+      }
+    },
+
+    userReviews: async (parent, { username }, context) => {
+      try {
+        // Fetch the user based on the provided username
+        const user = await User.findOne({ username }).populate("reviews");
+        if (!user) {
+          throw new Error("User not found");
+        }
+        // Extract and return the user's reviews
+        return user.reviews;
+      } catch (error) {
+        throw new Error("Failed to fetch user reviews");
+      }
+    },
+
+    comments: async (parent, { reviewId }, context) => {
+      try {
+        // Fetch the review based on the provided reviewId
+        const review = await Review.findById(reviewId);
+        if (!review) {
+          throw new Error("Review not found");
+        }
+        // Return the comments associated with the review
+        return review.comments;
+      } catch (error) {
+        throw new Error("Failed to fetch comments for the review");
+      }
+    },
   },
 
   Mutation: {
