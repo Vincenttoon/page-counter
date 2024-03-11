@@ -40,13 +40,11 @@ function App() {
     <ApolloProvider client={client}>
       <Layout>
         <Router>
-          <body>
             <main className="container">
               <Routes>
                 <Route path="" element={<Feed />} />
               </Routes>
             </main>
-          </body>
         </Router>
       </Layout>
     </ApolloProvider>

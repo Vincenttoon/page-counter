@@ -4,8 +4,11 @@ import { AiOutlineClose } from "react-icons/ai";
 import Auth from "../../utils/auth";
 import classes from "./Header.module.scss";
 
-const Header = () => {
+import SignupModal from "../SignupModal/SignupModal";
+
+const Header = ({ setShowModal }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
   const [size, setSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -31,6 +34,11 @@ const Header = () => {
     event.preventDefault();
     Auth.logout();
     setMenuOpen(false); // Close the menu after logout
+  };
+
+  const signupHandler = () => {
+    setShowModal(true); // Open the modal when signup button is clicked
+    setMenuOpen(false); // Close the menu
   };
 
   return (
@@ -77,9 +85,9 @@ const Header = () => {
                   </button>
                 </li>
                 <li>
-                  <button onClick={menuToggleHandler}>
-                    <a href="/signup">Signup</a>
-                  </button>
+                  <li>
+                    <button onClick={signupHandler}>Signup</button>
+                  </li>
                 </li>
               </>
             )}

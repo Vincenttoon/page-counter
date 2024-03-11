@@ -6,7 +6,6 @@ export const LOGIN_USER = gql`
       token
       user {
         _id
-        username
         email
       }
     }
@@ -223,7 +222,6 @@ export const ADD_WORM = gql`
       email
       worms {
         _id
-        // Include other worm fields here if needed
       }
     }
   }
@@ -237,7 +235,6 @@ export const REMOVE_WORM = gql`
       email
       worms {
         _id
-        // Include other worm fields here if needed
       }
     }
   }

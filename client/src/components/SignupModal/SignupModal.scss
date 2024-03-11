@@ -1,0 +1,39 @@
+@import "../../styles/variables.scss";
+
+.form-group {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 75%;
+    margin: 0 auto;
+
+    label {
+        width: 35%;
+    }
+    input {
+        width: 65%;
+    }
+}
+
+.login-prompt {
+    padding-top: 2vh;
+width: 100%;
+text-align: center;
+
+a:hover {
+    color: $orange;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: $green;
+}
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding-top: 2vh;
+}
