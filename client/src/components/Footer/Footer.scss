@@ -1,0 +1,66 @@
+@import "../../styles/variables.scss";
+
+.footer-div {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  height: 3rem;
+  width: 100%;
+  background-color: $dark;
+  border-top: solid;
+  border-color: $light;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 6vh;
+  // margin-bottom: 2vh;
+  // z-index: 1; /* Ensure the footer stays above other content */
+
+  .footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  h4 {
+    color: $white;
+  }
+
+  .rights-div {
+    color: $lightGrey;
+  }
+
+  .icon-list ul {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    color: $light;
+    justify-content: center;
+    padding-inline-start: 0px;
+    font-size: 20px;
+    list-style: none;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  .icon-li:hover {
+    flex-direction: column;
+    color: $green;
+  }
+}
+
+@media (max-height: 640px) {
+  .footer-div {
+    height: 2rem;
+    margin-bottom: 5px;
+
+    .icon-list ul {
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}

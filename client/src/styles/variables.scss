@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap");
+
+$Kanit: "Kanit", sans-serif;
+
+// colors
+$black: #141514;
+$dark: #3b3c3b;
+$darkGrey: #646766;
+$lightGrey: #abadac;
+$white: #f6f6f6;
+$yellow: #eaee00;
+$orange: #da8300;
+$green: #00da83;
+$red: #db000b;
+$blue: #000bdb;
+
+$light: #fff;
+$primary: rgb(162, 162, 246);
+$bg: rgb(244, 244, 255);
+
+// spacing
+$spacing-md: 16px;
+$spacing-lg: 32px;
+
+// border radius
+$borderRadius: 12px;
+
+// header height
+$headerHeight: 100px;
+
+@mixin tablet {
+  @media screen and (max-width: 1020px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 810px) {
+    @content;
+  }
+}
+
+@mixin breakpoint($point) {
+  @if $point == md {
+    // 768px
+    @media (min-width: 48em) {
+      @content;
+    }
+  }
+}
