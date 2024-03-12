@@ -37,7 +37,7 @@ const SearchBooks = () => {
           pageCount: item.volumeInfo.pageCount || "N/A",
           averageRating: item.volumeInfo.averageRating || "N/A",
         }));
-        setSearchResults(books);
+        setSearchResults(books.slice(0, 9));
       } else {
         setSearchResults([]);
       }
@@ -123,6 +123,11 @@ const SearchBooks = () => {
             </div>
             <p>Page Count: {book.pageCount}</p>
             <p>Average Rating: {book.averageRating}</p>
+
+            <div className="log-and-stash-div">
+                <button className="log-btn">Log</button>
+                <button className="stash-btn">Stash</button>
+            </div>
           </div>
         ))}
       </div>
