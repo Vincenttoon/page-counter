@@ -126,30 +126,7 @@ export const REMOVE_BOOK = gql`
         title
         image
         link
-        averageRating
         pageCount
-      }
-      reviews {
-        _id
-        reviewText
-        rating
-        createdAt
-        book {
-          _id
-          authors
-          description
-          title
-          image
-          link
-          averageRating
-          pageCount
-        }
-        comments {
-          _id
-          commentBody
-          createdAt
-          username
-        }
       }
     }
   }

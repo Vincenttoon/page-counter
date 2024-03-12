@@ -11,6 +11,7 @@ const SearchBooks = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [savedBookIds, setSavedBookIds] = useState([]); // Initialize savedBookIds state
 
   const [saveBookMutation] = useMutation(SAVE_BOOK);
 
@@ -86,6 +87,14 @@ const SearchBooks = () => {
     }
 
     try {
+      // Check if the book is already saved
+      const isBookSaved = savedBookIds.includes(bookId);
+      if (isBookSaved) {
+        alert("This book has already been saved.");
+        console.log("Book already saved!");
+        return;
+      }
+
       // Call the saveBook mutation with the bookId
       const response = await saveBookMutation({
         variables: {
@@ -111,6 +120,7 @@ const SearchBooks = () => {
     } catch (err) {
       console.error("Error saving book:", err);
     }
+    alert("Book added to stash!");
   };
 
   return (

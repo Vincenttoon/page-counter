@@ -161,7 +161,20 @@ const resolvers = {
     saveBook: async (parent, { input }, context) => {
       if (context.user) {
         try {
-          // Create a new Book document and save it to the database
+          // Check if the book already exists in the user's savedBooks array
+          const user = await User.findById(context.user._id).populate(
+            "savedBooks"
+          );
+          const existingBook = user.savedBooks.find(
+            (book) => book.bookId === input.bookId
+          );
+
+          // If the book already exists, throw an error
+          if (existingBook) {
+            throw new Error("This book has already been saved.");
+          }
+
+          // If the book does not exist, create a new Book document and save it to the database
           const newBook = new Book(input);
           const savedBook = await newBook.save();
 
