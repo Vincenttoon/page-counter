@@ -22,6 +22,18 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  aboutMe: {
+    type: String,
+    required: false,
+  },
+  age: {
+    type: Number,
+    required: false,
+  },
+  favoriteGenre: {
+    type: String,
+    required: false,
+  },
   savedBooks: [
     {
       type: Schema.Types.ObjectId,

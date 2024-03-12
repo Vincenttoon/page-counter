@@ -25,6 +25,90 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_ABOUT_ME = gql`
+  mutation AddAboutMe($aboutMe: String!) {
+    addAboutMe(aboutMe: $aboutMe) {
+      token
+      user {
+        _id
+        username
+        email
+        aboutMe
+      }
+    }
+  }
+`;
+
+export const EDIT_ABOUT_ME = gql`
+  mutation EditAboutMe($aboutMe: String!) {
+    editAboutMe(aboutMe: $aboutMe) {
+      token
+      user {
+        _id
+        username
+        email
+        aboutMe
+      }
+    }
+  }
+`;
+
+export const ADD_AGE = gql`
+  mutation AddAge($age: Int!) {
+    addAge(age: $age) {
+      token
+      user {
+        _id
+        username
+        email
+        age
+      }
+    }
+  }
+`;
+
+export const EDIT_AGE = gql`
+  mutation EditAge($age: Int!) {
+    editAge(age: $age) {
+      token
+      user {
+        _id
+        username
+        email
+        age
+      }
+    }
+  }
+`;
+
+export const ADD_FAVORITE_GENRE = gql`
+  mutation AddFavoriteGenre($favoriteGenre: String!) {
+    addFavoriteGenre(favoriteGenre: $favoriteGenre) {
+      token
+      user {
+        _id
+        username
+        email
+        favoriteGenres
+      }
+    }
+  }
+`;
+
+export const EDIT_FAVORITE_GENRE = gql`
+  mutation EditFavoriteGenre($favoriteGenre: String!) {
+    editFavoriteGenre(favoriteGenre: $favoriteGenre) {
+      token
+      user {
+        _id
+        username
+        email
+        favoriteGenres
+      }
+    }
+  }
+`;
+
 export const WRITE_REVIEW = gql`
   mutation WriteReview($reviewText: String!, $rating: Float!, $bookId: ID!) {
     writeReview(reviewText: $reviewText, rating: $rating, bookId: $bookId) {

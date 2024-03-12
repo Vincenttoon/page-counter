@@ -291,6 +291,110 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    addAboutMe: async (parent, { aboutMe }, context) => {
+      if (context.user) {
+        try {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            { aboutMe },
+            { new: true }
+          );
+
+          return { token: signToken(updatedUser), user: updatedUser };
+        } catch (error) {
+          throw new Error(`Failed to update about me: ${error.message}`);
+        }
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    editAboutMe: async (parent, { aboutMe }, context) => {
+      if (context.user) {
+        try {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            { aboutMe },
+            { new: true }
+          );
+
+          return { token: signToken(updatedUser), user: updatedUser };
+        } catch (error) {
+          throw new Error(`Failed to update about me: ${error.message}`);
+        }
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    addAge: async (parent, { age }, context) => {
+      if (context.user) {
+        try {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            { age },
+            { new: true }
+          );
+    
+          return { token: signToken(updatedUser), user: updatedUser };
+        } catch (error) {
+          throw new Error(`Failed to update age: ${error.message}`);
+        }
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    editAge: async (parent, { age }, context) => {
+      if (context.user) {
+        try {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            { age },
+            { new: true }
+          );
+    
+          return { token: signToken(updatedUser), user: updatedUser };
+        } catch (error) {
+          throw new Error(`Failed to update age: ${error.message}`);
+        }
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    addFavoriteGenre: async (parent, { favoriteGenres }, context) => {
+      try {
+        if (context.user) {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            { favoriteGenre },
+            { new: true }
+          );
+    
+          return { token: signToken(updatedUser), user: updatedUser };
+        }
+        throw new AuthenticationError("You need to be logged in!");
+      } catch (error) {
+        throw new Error(`Failed to add favorite genre: ${error.message}`);
+      }
+    },
+    
+    // Resolver for editing favorite genres
+    editFavoriteGenre: async (parent, { favoriteGenres }, context) => {
+      try {
+        if (context.user) {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            { favoriteGenre },
+            { new: true }
+          );
+    
+          return { token: signToken(updatedUser), user: updatedUser };
+        }
+        throw new AuthenticationError("You need to be logged in!");
+      } catch (error) {
+        throw new Error(`Failed to edit favorite genre: ${error.message}`);
+      }
+    },
+    
   },
 };
 

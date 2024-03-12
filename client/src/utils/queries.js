@@ -6,6 +6,9 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      aboutMe
+      age
+      favoriteGenre
       savedBooks {
         _id
         authors
@@ -45,6 +48,9 @@ export const QUERY_USER = gql`
       _id
       username
       email
+      aboutMe
+      age
+      favoriteGenre
       savedBooks {
         _id
         authors
@@ -85,6 +91,9 @@ export const QUERY_ALL_USERS = gql`
       _id
       username
       email
+      aboutMe
+      age
+      favoriteGenre
       savedBooks {
         _id
         authors
