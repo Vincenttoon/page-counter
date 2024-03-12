@@ -12,6 +12,7 @@ import { setContext } from "@apollo/client/link/context";
 import Layout from "./components/Layout";
 
 import Feed from "./pages/Feed";
+import SearchBooks from "./pages/SearchBooks";
 
 // create http link to connect to graphQl backend
 const httpLink = createHttpLink({
@@ -43,6 +44,7 @@ function App() {
             <main className="container">
               <Routes>
                 <Route path="" element={<Feed />} />
+                <Route path="/search" element={<SearchBooks />} />
               </Routes>
             </main>
         </Router>

@@ -1,0 +1,101 @@
+@import "../styles/variables.scss";
+
+.container {
+  width: 90%;
+  background-color: $black;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: $white;
+  border-radius: 15px;
+}
+
+.search-div {
+  width: 60%;
+}
+
+.books-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  margin: auto;
+  padding: 1.5vh;
+
+  h2 {
+    text-shadow: 1px 1px 1px $orange;
+  }
+
+  .find-books {
+    text-decoration: underline;
+    text-decoration-color: $green;
+  }
+}
+
+input {
+  width: 90%;
+  margin: 2vh;
+  padding: 1vh;
+  box-shadow: 1px 1px 1px $green;
+  border-radius: 10px;
+  background-color: $lightGrey;
+  color: $black;
+}
+
+.input-text::placeholder {
+    color: $black;
+}
+
+input:focus {
+    outline: none;
+    background-color: $white;
+}
+
+.search-button {
+    width: 50%;
+    background-color: $green;
+    box-shadow: 1px 1px 1px $orange;
+}
+
+
+.search-button:hover {
+    background-color: $orange;
+    box-shadow: 1px 1px 1px $green;
+}
+
+.p-info {
+    margin: 1.5vh;
+
+    a {
+        text-decoration: none;
+        color: $white;
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: $yellow;
+        text-decoration: underline;
+        text-decoration-color: $white;
+    }
+}
+
+.results-div {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.search-result {
+    width: calc(33.33% - 20px); /* Adjust the width as needed */
+    margin: 10px; /* Adjust the margin as needed */
+  }
+  
+  @media (max-width: 768px) {
+    .search-result {
+      width: calc(50% - 20px); /* Adjust the width as needed for smaller screens */
+    }
+  }
