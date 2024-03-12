@@ -1,17 +1,22 @@
 import React, { useState } from "react";
-import "./SignupModal.scss";
+import "./LoginModal.scss";
 import Modal, { ModalBody, ModalFooter, ModalHeader } from "../Modal/index.js";
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../../utils/mutations";
+import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth.js";
-function SignupModal({ showModal, setShowModal, showLoginModal, setShowLoginModal }) {
+
+function LoginModal({
+  showModal,
+  setShowModal,
+  showLoginModal,
+  setShowLoginModal,
+}) {
   const [formState, setFormState] = useState({
-    username: "",
     email: "",
     password: "",
   });
 
-  const [addUser, { error }] = useMutation(ADD_USER);
+  const [login, { error }] = useMutation(LOGIN_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,43 +28,30 @@ function SignupModal({ showModal, setShowModal, showLoginModal, setShowLoginModa
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("Form submitted!");
     try {
-      const { data } = await addUser({
+      const { data } = await login({
         variables: { ...formState },
       });
-      console.log("Signup successful:", data);
-      Auth.login(data.addUser.token);
-      setShowModal(false); // Close the modal after successful signup
+      Auth.login(data.login.token);
+      setShowLoginModal(false); // Close the modal after successful login
     } catch (e) {
-      console.error("Signup error:", e);
+      console.error("Login error:", e);
     }
   };
 
-  const handleLoginClick = () => {
-    setShowModal(false); // Close the login modal
-    setShowLoginModal(true); // Open the signup modal
+  const handleSignupClick = () => {
+    setShowLoginModal(false); // Close the login modal
+    setShowModal(true); // Open the signup modal
   };
 
   return (
-    <Modal show={showModal} setShow={setShowModal}>
+    <Modal show={showLoginModal} setShow={setShowLoginModal}>
       <ModalHeader>
-        <h2>Sign Up</h2>
+        <h2>Log In</h2>
       </ModalHeader>
       <ModalBody>
         <div className="input-group">
           <form onSubmit={handleFormSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                onChange={handleChange}
-                value={formState.username}
-                required
-              />
-            </div>
             <div className="form-group">
               <label htmlFor="email">Email: </label>
               <input
@@ -84,17 +76,17 @@ function SignupModal({ showModal, setShowModal, showLoginModal, setShowLoginModa
             </div>
             {error && <p className="error-message">{error.message}</p>}
             <div className="modal-footer">
-              <button type="submit">Sign Up</button>
+              <button type="submit">Log In</button>
               <button type="button" onClick={() => setShowLoginModal(false)}>
                 Close
               </button>
             </div>
           </form>
         </div>
-        <div className="login-prompt">
+        <div className="signup-prompt">
           <p>
-            {" "}
-            Already have an account? <a onClick={handleLoginClick}>Log in!</a>
+            Don't have an account yet?{" "}
+            <a onClick={handleSignupClick}>Sign up!</a>
           </p>
         </div>
       </ModalBody>
@@ -102,4 +94,4 @@ function SignupModal({ showModal, setShowModal, showLoginModal, setShowLoginModa
   );
 }
 
-export default SignupModal;
+export default LoginModal;

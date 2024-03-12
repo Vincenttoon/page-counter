@@ -5,8 +5,14 @@ import Auth from "../../utils/auth";
 import classes from "./Header.module.scss";
 
 import SignupModal from "../SignupModal/SignupModal";
+import LoginModal from "../LoginModal/LoginModal"; // Import the LoginModal component
 
-const Header = ({ setShowModal }) => {
+const Header = ({
+  showModal,
+  setShowModal,
+  showLoginModal,
+  setShowLoginModal,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [size, setSize] = useState({
@@ -37,7 +43,14 @@ const Header = ({ setShowModal }) => {
   };
 
   const signupHandler = () => {
-    setShowModal(true); // Open the modal when signup button is clicked
+    setShowModal(true); // Open the signup modal
+    setShowLoginModal(false); // Close the login modal
+    setMenuOpen(false); // Close the menu
+  };
+
+  const loginHandler = () => {
+    setShowLoginModal(true); // Open the login modal
+    setShowModal(false); // Close the signup modal
     setMenuOpen(false); // Close the menu
   };
 
@@ -80,14 +93,10 @@ const Header = ({ setShowModal }) => {
             ) : (
               <>
                 <li>
-                  <button onClick={menuToggleHandler}>
-                    <a href="/login">Login</a>
-                  </button>
+                  <button onClick={loginHandler}>Login</button>
                 </li>
                 <li>
-                  <li>
-                    <button onClick={signupHandler}>Signup</button>
-                  </li>
+                  <button onClick={signupHandler}>Signup</button>
                 </li>
               </>
             )}
@@ -101,6 +110,11 @@ const Header = ({ setShowModal }) => {
           )}
         </div>
       </div>
+      <SignupModal showModal={showModal} setShowModal={setShowModal} />
+      <LoginModal
+        showModal={showLoginModal}
+        setShowModal={setShowLoginModal}
+      />{" "}
     </header>
   );
 };
