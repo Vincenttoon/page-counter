@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch, FaBookOpen } from "react-icons/fa";
 import "../styles/SearchBooks.scss";
+import { useMutation } from "@apollo/react-hooks";
+import Auth from "../utils/auth";
+
+import { SAVE_BOOK } from "../utils/mutations"; // Import the Auth object
 
 const SearchBooks = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [saveBookMutation] = useMutation(SAVE_BOOK);
+
+  useEffect(() => {
+    // Check authentication status when component mounts
+    setIsLoggedIn(Auth.loggedIn());
+  }, []);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -37,6 +49,7 @@ const SearchBooks = () => {
           pageCount: item.volumeInfo.pageCount || "N/A",
           averageRating: item.volumeInfo.averageRating || "N/A",
         }));
+        console.log(books);
         setSearchResults(books.slice(0, 9));
       } else {
         setSearchResults([]);
@@ -58,6 +71,46 @@ const SearchBooks = () => {
     updatedSearchResults[index].truncateDescription =
       !updatedSearchResults[index].truncateDescription;
     setSearchResults(updatedSearchResults);
+  };
+
+  const handleSaveBook = async (bookId) => {
+    console.log("Book ID to save:", bookId);
+    console.log("Search results:", searchResults);
+    // Find the book to save from the searchResults array
+    const bookToSave = searchResults.find((book) => book.id === bookId);
+
+    // Ensure the book to save exists
+    if (!bookToSave) {
+      console.error("Book not found!");
+      return;
+    }
+
+    try {
+      // Call the saveBook mutation with the bookId
+      const response = await saveBookMutation({
+        variables: {
+          input: {
+            bookId: bookToSave.id,
+            authors: bookToSave.authors,
+            description: bookToSave.description,
+            title: bookToSave.title,
+            image: bookToSave.image,
+            link: bookToSave.link,
+            pageCount: bookToSave.pageCount,
+          },
+        },
+      });
+
+      // Check if the response is successful
+      if (!response || !response.data) {
+        throw new Error("Failed to save book!");
+      }
+
+      // If book successfully saves to user's account, save book id to state
+      setSavedBookIds([...savedBookIds, bookToSave.id]);
+    } catch (err) {
+      console.error("Error saving book:", err);
+    }
   };
 
   return (
@@ -122,12 +175,18 @@ const SearchBooks = () => {
               )}
             </div>
             <p>Page Count: {book.pageCount}</p>
-            <p>Average Rating: {book.averageRating}</p>
 
-            <div className="log-and-stash-div">
+            {isLoggedIn && ( // Conditionally render buttons based on isLoggedIn state
+              <div className="log-and-stash-div">
                 <button className="log-btn">Log</button>
-                <button className="stash-btn">Stash</button>
-            </div>
+                <button
+                  className="stash-btn"
+                  onClick={() => handleSaveBook(book.id)} // <-- Check this line
+                >
+                  Stash
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>

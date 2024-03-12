@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const bookSchema = new Schema({
-  authors: {
+  authors: [
+    {
     type: String,
   },
+],
   description: {
     type: String,
     required: true,
@@ -23,10 +25,6 @@ const bookSchema = new Schema({
   title: {
     type: String,
     required: true,
-  },
-  averageRating: {
-    type: Number,
-    default: 0, // Default to 0 if there are no reviews yet
   },
   pageCount: {
     type: Number,

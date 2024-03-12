@@ -95,49 +95,26 @@ export const REMOVE_REVIEW = gql`
 `;
 
 export const SAVE_BOOK = gql`
-  mutation SaveBook($bookId: ID!) {
-    saveBook(input: { bookId: $bookId }) {
+  mutation saveBook($input: BookInput) {
+    saveBook(input: $input) {
       _id
       username
-      email
+      savedBooksCount
       savedBooks {
-        _id
+        bookId
         authors
-        description
-        title
         image
         link
-        averageRating
+        title
+        description
         pageCount
-      }
-      reviews {
-        _id
-        reviewText
-        rating
-        createdAt
-        book {
-          _id
-          authors
-          description
-          title
-          image
-          link
-          averageRating
-          pageCount
-        }
-        comments {
-          _id
-          commentBody
-          createdAt
-          username
-        }
       }
     }
   }
 `;
 
 export const REMOVE_BOOK = gql`
-  mutation RemoveBook($bookId: ID!) {
+  mutation removeBook($bookId: ID!) {
     removeBook(bookId: $bookId) {
       _id
       username

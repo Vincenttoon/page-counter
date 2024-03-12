@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Review } = require("../models");
+const { User, Review, Book } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -160,24 +160,25 @@ const resolvers = {
 
     saveBook: async (parent, { input }, context) => {
       if (context.user) {
-        const { bookId } = input; // Assuming input contains a bookId field
-        const addSavedBook = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedBooks: bookId } }, // Add bookId instead of the entire input object
-          { new: true }
-        ).populate("savedBooks"); // Populate the savedBooks field to fetch book details
+        try {
+          // Create a new Book document and save it to the database
+          const newBook = new Book(input);
+          const savedBook = await newBook.save();
 
-        // Assuming savedBooks field in User model is populated with Book documents
-        const savedBooks = addSavedBook.savedBooks;
+          // Add the ObjectId of the saved book to the user's savedBooks array
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            { $addToSet: { savedBooks: savedBook._id } }, // Use savedBook._id
+            { new: true }
+          ).populate("savedBooks");
 
-        // Fetch details of each saved book
-        const savedBooksDetails = await Book.find({ _id: { $in: savedBooks } });
-
-        return savedBooksDetails;
+          return updatedUser;
+        } catch (error) {
+          throw new Error(`Failed to save book: ${error.message}`);
+        }
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const updatedSavedBook = await User.findOneAndUpdate(
