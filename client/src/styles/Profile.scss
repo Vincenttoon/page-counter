@@ -1,0 +1,104 @@
+@import "../styles/variables.scss";
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+
+  .profile-hero {
+    width: 100%;
+    margin: auto;
+
+    .hero-text-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-top: 3vh;
+
+      .name {
+        min-width: 30%;
+        margin: auto;
+        text-decoration: underline;
+        text-decoration-color: $orange;
+        text-shadow: 1px 1px 1px $green;
+      }
+
+      .age {
+        width: 30%;
+        margin: auto;
+      }
+
+      .favorite-genre {
+        width: 30%;
+        margin: auto;
+      }
+
+      button {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+      }
+
+      .age-btn {
+        background-color: $yellow;
+        color: $black;
+        box-shadow: 2px 2px 2px $lightGrey;
+      }
+
+      .age-btn:hover {
+        background-color: $green;
+      }
+
+      .genre-btn {
+        background-color: $yellow;
+        color: $black;
+        box-shadow: 2px 2px 2px $lightGrey;
+      }
+
+      .genre-btn:hover {
+        background-color: $green;
+      }
+    }
+
+    .about-me-container {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 3vh;
+      margin-top: 2.5vh;
+      border: thick solid;
+      border-color: $orange;
+      background-color: $lightGrey;
+      color: black;
+      text-align: center;
+
+      .about-btn {
+        margin: auto;
+        margin-bottom: 2vh;
+        margin-top: 2vh;
+        background-color: $yellow;
+        box-shadow: 2px 2px 2px $black;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .about-btn:hover {
+        background-color: $green;
+      }
+    }
+  }
+
+  .stats-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 3vh;
+  }
+
+  .saved-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

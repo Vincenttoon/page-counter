@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import "../styles/Profile.scss";
 import { TiPencil } from "react-icons/ti";
 import { TfiThought } from "react-icons/tfi";
 import { FaPlusSquare, FaPaintBrush } from "react-icons/fa";
@@ -38,15 +39,19 @@ function Profile() {
       <div className="profile-hero">
         <div className="hero-text-container">
           <div className="name">
-            <h1>{userParam ? `${user.username}'s` : "your"} profile</h1>
+            <h1>{userParam ? `${user.username}'s` : "Your"} Profile</h1>
           </div>
 
           <div className="age">
             {user.age
               ? `Age: ${user.age}`
               : isLoggedInUser && (
-                  <button onClick={() => console.log("Set age:")}>
-                    <FaPlusSquare /> Set Your Age <SlCalender />
+                  <button
+                    className="age-btn"
+                    onClick={() => console.log("Set age:")}
+                  >
+                    <FaPlusSquare size={40} /> <h2>Add Age</h2>{" "}
+    
                   </button>
                 )}
           </div>
@@ -55,8 +60,11 @@ function Profile() {
             {user.favoriteGenres && user.favoriteGenres.length > 0
               ? `Favorite Genre: ${user.favoriteGenres}`
               : isLoggedInUser && (
-                  <button onClick={() => console.log("Create Favorite Genre")}>
-                    <FaPlusSquare /> Set Your Favorite Genre <FaPaintBrush />
+                  <button
+                    className="genre-btn"
+                    onClick={() => console.log("Create Favorite Genre")}
+                  >
+                    <FaPlusSquare size={50} /> <p> Add Favorite Genre </p>{" "}
                   </button>
                 )}
           </div>
@@ -69,8 +77,11 @@ function Profile() {
             isLoggedInUser && (
               <>
                 <p>Nothing here yet!</p>
-                <button onClick={() => console.log("Create about me")}>
-                  <FaPlusSquare /> Create About me <TfiThought />
+                <button
+                  className="about-btn"
+                  onClick={() => console.log("Create about me")}
+                >
+                  <FaPlusSquare size={30} /> <h2>Create About Me</h2> <TfiThought size={30} />
                 </button>
               </>
             )
@@ -82,7 +93,8 @@ function Profile() {
 
       {/* Render other profile components */}
       <div className="stats-container">
-        <div className="stat-one">Stat 1, Total Books</div>
+        <div className="stat-one">
+          Stat 1, Total Books</div>
 
         <div className="stat-two">Stat 2, Total Books</div>
 
