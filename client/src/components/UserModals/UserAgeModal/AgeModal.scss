@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.add-age-modal {
+
+    .age-modal-h2 {
+        text-align: start;
+        color: $black;
+    }
+
+    input {
+        margin: auto;
+        height: 10vh;
+        font-size: 2.2rem;
+    }
+}
+

@@ -20,6 +20,8 @@ import {
   EDIT_FAVORITE_GENRES,
 } from "../utils/mutations";
 
+import AgeModal from "../components/UserModals/UserAgeModal/AgeModal.js";
+
 import LogList from "../components/ProfileTools/LogList/LogList.js";
 import StashList from "../components/ProfileTools/StashList/StashList.js";
 import WormsList from "../components/ProfileTools/WormsList/WormsList";
@@ -34,6 +36,12 @@ function Profile() {
   const user = data?.me || data?.user || {};
   const isLoggedInUser = meData?.me?.username === user.username; // Check if the logged-in user is the same as the user being viewed
 
+  const [showAgeModal, setShowAgeModal] = useState(false);
+
+  const handleOpenAgeModal = () => {
+    setShowAgeModal(true);
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-hero">
@@ -43,48 +51,46 @@ function Profile() {
           </div>
 
           <div className="age">
-            {user.age
-              ? `Age: ${user.age}`
-              : isLoggedInUser && (
-                  <button
-                    className="age-btn"
-                    onClick={() => console.log("Set age:")}
-                  >
-                    <FaPlusSquare size={40} /> <h2>Add Age</h2>{" "}
-    
-                  </button>
-                )}
+            {user.age ? (
+              `Age: ${user.age}`
+            ) : isLoggedInUser ? (
+              <button className="age-btn" onClick={handleOpenAgeModal}>
+                <FaPlusSquare size={40} /> <h2>Add Age</h2>{" "}
+                <SlCalender size={20} />
+              </button>
+            ) : null}
           </div>
 
           <div className="favorite-genre">
-            {user.favoriteGenres && user.favoriteGenres.length > 0
-              ? `Favorite Genre: ${user.favoriteGenres}`
-              : isLoggedInUser && (
-                  <button
-                    className="genre-btn"
-                    onClick={() => console.log("Create Favorite Genre")}
-                  >
-                    <FaPlusSquare size={50} /> <p> Add Favorite Genre </p>{" "}
-                  </button>
-                )}
+            {user.favoriteGenres && user.favoriteGenres.length > 0 ? (
+              `Favorite Genre: ${user.favoriteGenres}`
+            ) : isLoggedInUser ? (
+              <button
+                className="genre-btn"
+                onClick={() => console.log("Create Favorite Genre")}
+              >
+                <FaPlusSquare size={50} /> <p> Add Favorite Genre </p>{" "}
+              </button>
+            ) : null}
           </div>
         </div>
 
         <div className="about-me-container">
           {user.aboutMe ? (
             <p>About me: {user.aboutMe}</p>
+          ) : isLoggedInUser ? (
+            <>
+              <p>Nothing here yet!</p>
+              <button
+                className="about-btn"
+                onClick={() => console.log("Create about me")}
+              >
+                <FaPlusSquare size={30} /> <h2>Create About Me</h2>{" "}
+                <TfiThought size={30} />
+              </button>
+            </>
           ) : (
-            isLoggedInUser && (
-              <>
-                <p>Nothing here yet!</p>
-                <button
-                  className="about-btn"
-                  onClick={() => console.log("Create about me")}
-                >
-                  <FaPlusSquare size={30} /> <h2>Create About Me</h2> <TfiThought size={30} />
-                </button>
-              </>
-            )
+            <p>Nothing here yet!</p>
           )}
         </div>
       </div>
@@ -93,8 +99,7 @@ function Profile() {
 
       {/* Render other profile components */}
       <div className="stats-container">
-        <div className="stat-one">
-          Stat 1, Total Books</div>
+        <div className="stat-one">Stat 1, Total Books</div>
 
         <div className="stat-two">Stat 2, Total Books</div>
 
@@ -108,6 +113,9 @@ function Profile() {
 
         <div className="worms-list-container">Worms List Here</div>
       </div>
+
+      {/* Age Modal */}
+      <AgeModal showModal={showAgeModal} setShowModal={setShowAgeModal} />
     </div>
   );
 }
